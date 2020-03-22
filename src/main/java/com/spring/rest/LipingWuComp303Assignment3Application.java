@@ -34,6 +34,7 @@ public class LipingWuComp303Assignment3Application implements WebMvcConfigurer  
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
+		registry.addViewController("/aboutus").setViewName("aboutus");
 	}
 
 	@Bean
