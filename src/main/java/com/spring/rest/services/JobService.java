@@ -10,6 +10,8 @@ import java.util.Map;
 //import org.hibernate.mapping.Map;  //not this map
 import org.springframework.stereotype.Service;
 
+import com.spring.rest.exception.DuplicateException;
+import com.spring.rest.exception.NotFoundException;
 import com.spring.rest.models.Job;
 
 
@@ -17,9 +19,9 @@ import com.spring.rest.models.Job;
 public class JobService {
 	Map<Integer, Job> jobs = new HashMap<>();
 	
-	public void addJob(Job job) throws Exception {
+	public void addJob(Job job) throws DuplicateException {
 		if (jobs.containsKey(job.getJobId())) {
-			throw new Exception ("This job id already exists: " + job.getJobId());			
+			throw new DuplicateException ("This job id already exists: " + job.getJobId());			
 		} else {
 			jobs.put(job.getJobId(),job);
 		}
@@ -33,20 +35,20 @@ public class JobService {
 	}
 
 	// get job by id
-	public Job getJob(int jobId) throws Exception {
+	public Job getJob(int jobId) throws NotFoundException {
 		if (jobs.containsKey(jobId)) {
 			return jobs.get(jobId);
 		} else {
-			throw new Exception ("Job id not found:" +jobId);
+			throw new NotFoundException  ("Job id not found:" +jobId);
 		}		
 	}
 	
 	// update job by id
-	public void updateJob (Job job) throws Exception {
+	public void updateJob (Job job) throws NotFoundException {
 		if(jobs.containsKey(job.getJobId())) {
 			jobs.put(job.getJobId(), job);
 		} else {
-			throw new Exception ("Job Id not found: "+ job.getJobId());
+			throw new NotFoundException ("Job Id not found: "+ job.getJobId());
 		}
 	}
 	
@@ -55,7 +57,7 @@ public class JobService {
 		if(jobs.containsKey(jobId)) {
 			jobs.remove(jobId);
 		} else {
-			throw new Exception ("Job Id  not found: "+ jobId );
+			throw new NotFoundException ("Job Id  not found: "+ jobId );
 		}
 	}
 

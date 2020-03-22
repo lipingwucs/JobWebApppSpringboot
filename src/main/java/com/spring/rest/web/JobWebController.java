@@ -42,7 +42,7 @@ public class JobWebController {
 	
 	@PostMapping("/jobs_add.html")
 	public String create(@ModelAttribute Job job) throws Exception {
-		 jobService.addJob(job);
+		 jobService.addJob(job);		
 		 return "redirect:/jobs.html";
 	}
 
