@@ -44,8 +44,9 @@ function render_job_list() {
 					parent.fadeOut('slow', function() {
 						$(this).remove();
 					});
-					//location.reload(true)
-					render_job_list();
+					
+					location.reload(true)
+					//render_job_list();
 				},
 				error: function() {
 					$('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting job').fadeIn().fadeOut(4000, function() {
