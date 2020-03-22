@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.spring.rest.exception.DuplicateException;
+import com.spring.rest.exception.NotFoundException;
 import com.spring.rest.models.Organization;
 
 @Service
@@ -17,7 +20,7 @@ public class OrgService {
 	//add an organization
 	public void addOrg(Organization org) throws Exception {
 		if (orgs.containsKey(org.getOrgId())) {
-			throw new Exception ("This job id already exists.");			
+			throw new DuplicateException ("This job id already exists.");			
 		} else {
 			orgs.put(org.getOrgId(),org);
 		}
@@ -35,7 +38,7 @@ public class OrgService {
 		if (orgs.containsKey(orgId)) {
 			return orgs.get(orgId);
 		} else {
-			throw new Exception ("organization id not found");
+			throw new NotFoundException ("organization id not found");
 		}		
 	}
 	
@@ -44,7 +47,7 @@ public class OrgService {
 		if(orgs.containsKey(org.getOrgId())) {
 			orgs.put(org.getOrgId(), org);
 		} else {
-			throw new Exception ("Organization Id not found");
+			throw new NotFoundException ("Organization Id not found");
 		}
 	}
 	
@@ -53,7 +56,7 @@ public class OrgService {
 		if(orgs.containsKey(orgId)) {
 			orgs.remove(orgId);
 		} else {
-			throw new Exception ("organization Id  not found");
+			throw new NotFoundException ("organization Id  not found");
 		}
 	}	
 	

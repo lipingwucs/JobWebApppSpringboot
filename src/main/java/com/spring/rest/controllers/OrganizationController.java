@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.rest.models.Organization;
 import com.spring.rest.services.OrgService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+@Api(value="Organization CRUD", description="Operations pertaining to Organization in Recruitment Agency App ")
 @RestController
 public class OrganizationController {
 
@@ -26,18 +29,21 @@ public class OrganizationController {
 	OrgService orgService;
 
 	// get organization with certain Id
+	@ApiOperation(value = "get organization with certain Id")
 	@RequestMapping(value = "/orgs/{orgId}", method = RequestMethod.GET)
 	Organization getOrg(@PathVariable("orgId") int orgId) throws Exception {
 		return orgService.getOrg(orgId);
 	}
 
 	// get all orgs
+	@ApiOperation(value = "get all orgs")
 	@RequestMapping(value = "/orgs", method = RequestMethod.GET)
 	Iterable<Organization> getOrgs() {
 		return orgService.getOrgs();
 	}
 
 	// post a new org
+	@ApiOperation(value = "create a new org")
 	@RequestMapping(value = "/orgs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	Organization addOrg(@RequestBody Organization org) throws Exception {
@@ -45,7 +51,8 @@ public class OrganizationController {
 		return org;
 	}
 
-	// updatea org with orgId
+	// update org with orgId
+	@ApiOperation(value = "update an orgnization with orgId")
 	@RequestMapping(value = "/orgs/{orgId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
 	Organization updateOrg(@PathVariable("orgId") int orgId, @RequestBody Organization org) throws Exception {
@@ -55,6 +62,7 @@ public class OrganizationController {
 	}
 
 	// delete a org with orgId
+	@ApiOperation(value = "delete a org with orgId")
 	@RequestMapping(value = "/orgs/{orgId}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	void deleteOrg(@PathVariable("orgId") int orgId) throws Exception {

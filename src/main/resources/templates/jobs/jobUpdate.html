@@ -5,24 +5,18 @@
 <title>Post new Job </title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" >
-
+//ref: see aboutus.html
+//Apply JQuery- when page load to send request to REST API  PUT /jobs/jobId
 $(document).ready(function () {
-
-	$('#feedback').hide();
-	
+	$('#feedback').hide();	
     $("#form-update").submit(function (event) {
-
         //stop submit the form, we will post it manually.
         event.preventDefault();
-
         update_job();
-
     });
-
 });
 
 function update_job() {
-
     var jobData = {}
     var jobId = $("#jobId").val();
     jobData["jobId"] = jobId;
@@ -30,11 +24,9 @@ function update_job() {
     jobData["jobName"] = $("#jobName").val();
     jobData["jobDesc"] = $("#jobDesc").val();
     jobData["numVacancy"] = $("#numVacancy").val();
-    jobData["pubDate"] = $("#pubDate").val();
-    
+    jobData["pubDate"] = $("#pubDate").val();    
     $('#feedback').html("");
     $("#btn-update").prop("disabled", true);
-
     $.ajax({
         type: "PUT",
         contentType: "application/json",
@@ -47,8 +39,7 @@ function update_job() {
         	console.log("SUCCESS : ", data);
             var json = "Succeed to Update a job " + jobId + ".";
             $('#feedback').html(json);
-            $('#feedback').show();
-            
+            $('#feedback').show();            
             $("#btn-update").prop("disabled", false);
         },
         error: function (e) {
@@ -56,59 +47,52 @@ function update_job() {
             var json = "Failed to Update a job " + jobId + " : "
                 + e.responseText + "";
             $('#feedback').html(json);
-            $('#feedback').show();
-            
+            $('#feedback').show();            
             $("#btn-update").prop("disabled", false);
         }
     });
-
 }
-
 </script>
 
 </head>
 <body>
 
 <div layout:fragment="content" class="container">
-<h1>Update a Job Information here</h1>   	
-    	
- 
+<h1>Update a Job Information here</h1> 
 <form id="form-update" method="post" th:action="@{/jobs/jobId}" th:object="${job}" >  
 <div id="feedback" class="alert alert-danger pre_line" ></div>
-
    <table class="table table-hover table-striped">
      <tr>  
             <td><label for="jobId">Job Id</label></td>  
-            <td> <input type="text" readonly="true" th:field="*{jobId}" /></td>  
-        </tr>  
-        <tr>  
+            <td> <input type="text" readonly=true th:field="*{jobId}" /></td>  
+     </tr>  
+     <tr>  
             <td><label for="jobCode">Job Code</label></td>  
             <td><input type="text" th:field="*{jobCode}" /></td>  
-        </tr>
-        <tr>  
-            <td><label for="jobName">Job Name</label></td>  
-            <td><input type="text" th:field="*{jobName}" /></td>  
-        </tr>  
-        <tr>  
-            <td><label for="jobDesc">Job Desc</label></td>  
-            <td><input type="text" th:field="*{jobDesc}" /></td>  
-        </tr>  
-        <tr>  
-            <td><label for="numVacancy">No of Vacancy</label></td>  
-            <td><input type="text" th:field="*{numVacancy}" /></td>  
-        </tr>  
-        <tr>  
-            <td><label for="pubDate">Publich Date</label></td>  
-            <td><input type="date" th:field="*{pubDate}" /></td>  
-        </tr> 
-        <tr>  
-            <td></td>  
-            <td><input type="submit" id="btn-update" value="Update a Job Info" class="btn btn-warning"></input></td>  
-        </tr>  
+     </tr>
+     <tr>  
+          <td><label for="jobName">Job Name</label></td>  
+          <td><input type="text" th:field="*{jobName}" /></td>  
+     </tr>  
+     <tr>  
+         <td><label for="jobDesc">Job Desc</label></td>  
+         <td><input type="text" th:field="*{jobDesc}" /></td>  
+     </tr>  
+     <tr>  
+         <td><label for="numVacancy">No of Vacancy</label></td>  
+         <td><input type="text" th:field="*{numVacancy}" /></td>  
+     </tr>  
+     <tr>  
+         <td><label for="pubDate">Publich Date</label></td>  
+         <td><input type="date" th:field="*{pubDate}" /></td>  
+     </tr> 
+     <tr>  
+         <td></td>  
+         <td><input type="submit" id="btn-update" value="Update a Job Info" class="btn btn-warning"></input></td>  
+     </tr>  
     </table>  
 </form>  
 </div>
-
 </body>
 </html>
 

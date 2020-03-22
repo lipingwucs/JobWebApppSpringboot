@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 public class CategoryController {
 
-	@Autowired
+	@Autowired  
 	CatService catService;
 
 	// get category with certain Id

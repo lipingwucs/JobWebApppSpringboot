@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.rest.exception.DuplicateException;
+import com.spring.rest.exception.NotFoundException;
 import com.spring.rest.models.Category;
 
 @Service
@@ -17,7 +19,7 @@ public class CatService {
 
 	public void addCat(Category cat) throws Exception {
 		if (cats.containsKey(cat.getJobCatId())) {
-			throw new Exception("This category id already exists.");
+			throw new DuplicateException ("This category id already exists.");
 		} else {
 			cats.put(cat.getJobCatId(), cat);
 		}
@@ -35,7 +37,7 @@ public class CatService {
 		if (cats.containsKey(jobCatId)) {
 			return cats.get(jobCatId);
 		} else {
-			throw new Exception("job Cat Id id not found: "+ jobCatId);
+			throw new NotFoundException("job Cat Id id not found: "+ jobCatId);
 		}
 	}
 
@@ -44,7 +46,7 @@ public class CatService {
 		if (cats.containsKey(cat.getJobCatId())) {
 			cats.put(cat.getJobCatId(), cat);
 		} else {
-			throw new Exception("Category Id not found:"+ cat.getJobCatId());
+			throw new NotFoundException("Category Id not found:"+ cat.getJobCatId());
 		}
 	}
 
@@ -53,7 +55,7 @@ public class CatService {
 		if (cats.containsKey(jobCatId)) {
 			cats.remove(jobCatId);
 		} else {
-			throw new Exception("job Cat Id Id not found: "+ jobCatId);
+			throw new NotFoundException("job Cat Id Id not found: "+ jobCatId);
 		}
 	}
 

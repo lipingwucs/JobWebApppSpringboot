@@ -24,10 +24,10 @@ import com.spring.rest.services.OrgService;
  * */
 
 @SpringBootApplication
-public class LipingWuComp303Assignment3Application implements WebMvcConfigurer  {
+public class Assignment3Application implements WebMvcConfigurer  {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LipingWuComp303Assignment3Application.class, args);
+		SpringApplication.run(Assignment3Application.class, args);
 		System.out.println("Spring boot REST API for Job is start here:  http://localhost:8081/");
 	}
 	

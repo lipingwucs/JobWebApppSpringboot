@@ -5,12 +5,12 @@
   <title>Jobs List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <script type="text/javascript" >
-
+//ref: see aboutus.html
+//Apply JQuery- when page load to send request to REST API /jobs
+//then update the table content
 $(document).ready(function () {
-
 	$('#feedback').hide();
-	render_job_list();
-	
+	render_job_list();	
 });
 
 function render_job_list() {
@@ -26,8 +26,8 @@ function render_job_list() {
 			tr.push('<td><button class=\'details\'>Details</button>&nbsp;&nbsp;<button class=\'update\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + json[i].jobId + '>Delete</button></td>');
 			tr.push('</tr>');
 		}
-		$('#tbl-list tr>td').remove();
-		$('#tbl-list').append($(tr.join('')));
+		$('#tbl-list tr>td').remove();//remove old list
+		$('#tbl-list').append($(tr.join(''))); //append new list
 	});
 	
 	$(document).delegate('.delete', 'click', function() { 
@@ -62,23 +62,19 @@ function render_job_list() {
 		var parent = $(this).parent().parent();
 		var jobId = parent.children("td:nth-child(1)").html();
 		$(location).attr('href', '/jobs_update.html?jobId='+jobId);
-	});
-	
+	});	
 	$(document).delegate('.details', 'click', function() { 
 		var parent = $(this).parent().parent();
 		var jobId = parent.children("td:nth-child(1)").html();
 		$(location).attr('href', '/jobs_details.html?jobId='+jobId);
-	});
-	
-}
+	});	}
 
 function delete_job(jobId) {
 	var parent = $(this).parent().parent();
 	var jobcode = parent.children("td:nth-child(2)").html();
 	var jobName = parent.children("td:nth-child(3)").html();
 	if (confirm('Do you really want to delete this job '+jobId+':'+jobcode+':'+jobName+'?')) {
-	
-	    $.ajax({
+		    $.ajax({
 	        type: "DELETE",
 	        contentType: "application/json",
 	        url: "/jobs/"+jobId,        
@@ -89,8 +85,7 @@ function delete_job(jobId) {
 	        	console.log("SUCCESS delete job ", jobId);
 	            var json = "Succeed to Delete a job " + jobId + ".";
 	            $('#feedback').html(json);
-	            $('#feedback').show();
-	            
+	            $('#feedback').show();	            
 	           render_job_list();
 	        },
 	        error: function (e) {
@@ -102,26 +97,25 @@ function delete_job(jobId) {
 	        }
 	    });
 	}
-
 }
-
 </script>
+
 </head>
 <body>
-<div layout:fragment="content" class="container" >
-  <h1 align= "center">Jobs List</h1>
+<div layout:fragment="content" class="container_list" >
+<h1 align= "center">Jobs List</h1>
 <div id="feedback" class="alert alert-danger pre_line"></div>
-<table id="tbl-list" class="table table-hover table-striped thead-dark">
+<table id="tbl-list" class="table table-hover table-striped ">
+<thead class="thead-dark">
 		<tr>
-			<th>Job Id</th>
+			<th class="thead-dark">Job Id</th>
 			<th>Job Code</th>
-			<th>Job Name</th>
-	
+			<th>Job Name</th>	
 			<th>Number of Vacancy</th>
 			<th>Publish Date</th>
 			<th>Action</th>
-
 		</tr>
+</thead >
 		<tr th:each="job : ${jobList}">
 			<td th:text="${job.jobId}">Job Id</td>
 			<td th:text="${job.jobCode}">Job Code</td>

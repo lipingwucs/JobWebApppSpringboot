@@ -22,34 +22,34 @@ public class JobWebController {
 		this.jobService = jobService;
 	}
 
-	@GetMapping("/jobs.html")
+	@GetMapping("/jobs.html")  //frontend url
 	public String listJobs(Model model) {
 		model.addAttribute("jobList", jobService.getJobs());
-		return "jobs/jobList";
+		return "jobs/jobList"; //RESTAPI
 	}
 
-	@GetMapping(value = "/jobs_details.html", params = "jobId")
+	@GetMapping(value = "/jobs_details.html", params = "jobId")   //frontend url
 	public String getJob(@RequestParam("jobId") int jobId, Model model) throws Exception {	
 		model.addAttribute("job", jobService.getJob(jobId));
 		return "jobs/jobDetails";
 	}
 	
-	@GetMapping("/jobs_add.html")
+	@GetMapping("/jobs_add.html")  //frontend url
 	public String createJob(Model model) {
 		model.addAttribute("job", new Job());
-		return "jobs/jobAdd";
+		return "jobs/jobAdd";   
 	}
 	
-	@PostMapping("/jobs_add.html")
+	@PostMapping("/jobs_add.html")  //frontend url
 	public String createJobPost(@ModelAttribute Job job) throws Exception {
 		 jobService.addJob(job);		
-		 return "redirect:/jobs.html";
+		 return "redirect:/jobs.html"; 
 	}
 	
-	@GetMapping(value = "/jobs_update.html", params = "jobId")
+	@GetMapping(value = "/jobs_update.html", params = "jobId")  //frontend url
 	public String updateJob(@RequestParam("jobId") int jobId, Model model) throws Exception {	
 		model.addAttribute("job", jobService.getJob(jobId));
-		return "jobs/jobUpdate";
+		return "jobs/jobUpdate";   
 	}
 
 }
