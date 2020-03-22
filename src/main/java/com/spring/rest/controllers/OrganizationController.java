@@ -39,22 +39,24 @@ public class OrganizationController {
 
 	// post a new org
 	@RequestMapping(value = "/orgs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.OK)
-	void addOrg(@RequestBody Organization org) throws Exception {
+	@ResponseStatus(value = HttpStatus.CREATED)
+	Organization addOrg(@RequestBody Organization org) throws Exception {
 		orgService.addOrg(org);
+		return org;
 	}
 
 	// updatea org with orgId
 	@RequestMapping(value = "/orgs/{orgId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	void updateOrg(@PathVariable("orgId") int orgId, @RequestBody Organization org) throws Exception {
+	Organization updateOrg(@PathVariable("orgId") int orgId, @RequestBody Organization org) throws Exception {
 		org.setOrgId(orgId);
 		orgService.updateOrg(org);
+		return orgService.getOrg(orgId);
 	}
 
 	// delete a org with orgId
 	@RequestMapping(value = "/orgs/{orgId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	void deleteOrg(@PathVariable("orgId") int orgId) throws Exception {
 		orgService.deleteJob(orgId);
 	}

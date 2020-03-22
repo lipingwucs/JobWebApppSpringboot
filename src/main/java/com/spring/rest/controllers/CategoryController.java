@@ -38,22 +38,24 @@ public class CategoryController {
 
 	// post a new category
 	@RequestMapping(value = "/cats", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.OK)
-	void addCat(@RequestBody Category cat) throws Exception {
+	@ResponseStatus(value = HttpStatus.CREATED)
+	Category addCat(@RequestBody Category cat) throws Exception {
 		catService.addCat(cat);
+		return cat;
 	}
 
 	// update a category with jobCatId
 	@RequestMapping(value = "/cats/{jobCatId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	void updateCat(@PathVariable("jobCatId") int jobCatId, @RequestBody Category cat) throws Exception {
+	Category updateCat(@PathVariable("jobCatId") int jobCatId, @RequestBody Category cat) throws Exception {
 		cat.setJobCatId(jobCatId);
 		catService.updateCat(cat);
+		return catService.getCat(jobCatId);
 	}
 
 	// delete a category with jobCatId
 	@RequestMapping(value = "/cats/{jobCatId}", method = RequestMethod.DELETE)
-	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	void deleteCat(@PathVariable("jobCatId") int jobCatId) throws Exception {
 		catService.deleteCat(jobCatId);
 	}

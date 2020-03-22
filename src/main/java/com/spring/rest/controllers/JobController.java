@@ -37,27 +37,32 @@ public class JobController {
 	
 	// post a new job
 	@RequestMapping(value = "/jobs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus (value = HttpStatus.OK)
-	void addJob (@RequestBody Job job) throws Exception {
-		jobService.addJob(job);
+	@ResponseStatus (value = HttpStatus.CREATED)
+	Job addJob (@RequestBody Job job) throws Exception {
+		try {
+			System.out.println("got a request to add a job: " + job);
+			
+			jobService.addJob(job);
+			return job;
+		} catch (Exception e) {
+			System.out.println("got a exception when add a job: " + e);
+			throw e;
+		}
 	}
 	//update a job with jobId
 	@RequestMapping(value ="/jobs/{jobId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	void updateJob(@PathVariable("jobId") int jobId, @RequestBody Job job) throws Exception{
+	Job updateJob(@PathVariable("jobId") int jobId, @RequestBody Job job) throws Exception{
 		job.setJobId(jobId);
-		jobService.updateJob(job);		
+		jobService.updateJob(job);
+		return jobService.getJob(jobId);
 	}
 	
 	//delete a job with jobId
 	@RequestMapping(value = "/jobs/{jobId}", method = RequestMethod.DELETE)
-	@ResponseStatus (value = HttpStatus.OK)
+	@ResponseStatus (value = HttpStatus.NO_CONTENT)
 	void deleteJob(@PathVariable("jobId") int jobId) throws Exception {
         jobService.deleteJob(jobId);
 	}
-
-	
-	
-	
 
 }

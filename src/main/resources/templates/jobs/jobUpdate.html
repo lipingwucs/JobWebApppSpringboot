@@ -7,59 +7,59 @@
 <script type="text/javascript" >
 
 $(document).ready(function () {
-	
-	$('#feedback').hide();
 
-    $("#form-add").submit(function (event) {
+	$('#feedback').hide();
+	
+    $("#form-update").submit(function (event) {
 
         //stop submit the form, we will post it manually.
         event.preventDefault();
 
-        fire_ajax_submit();
+        update_job();
 
     });
 
 });
 
-function fire_ajax_submit() {
+function update_job() {
 
     var jobData = {}
-    jobData["jobId"] = $("#jobId").val();
+    var jobId = $("#jobId").val();
+    jobData["jobId"] = jobId;
     jobData["jobCode"] = $("#jobCode").val();
     jobData["jobName"] = $("#jobName").val();
     jobData["jobDesc"] = $("#jobDesc").val();
     jobData["numVacancy"] = $("#numVacancy").val();
     jobData["pubDate"] = $("#pubDate").val();
     
-
-    $("#btn-add").prop("disabled", true);
+    $('#feedback').html("");
+    $("#btn-update").prop("disabled", true);
 
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: "application/json",
-        url: "/jobs",
+        url: "/jobs/"+jobId,
         data: JSON.stringify(jobData),
         dataType: 'json',
         cache: false,
         timeout: 600000,
         success: function (data) {
         	console.log("SUCCESS : ", data);
-            var json = "Succeed to Add a job " + data.jobId + ".";
+            var json = "Succeed to Update a job " + jobId + ".";
             $('#feedback').html(json);
             $('#feedback').show();
             
-            $("#btn-add").prop("disabled", false);
+            $("#btn-update").prop("disabled", false);
         },
         error: function (e) {
         	console.log("ERROR : ", e);
-            var json = "Failed to Add a job  : "
+            var json = "Failed to Update a job " + jobId + " : "
                 + e.responseText + "";
             $('#feedback').html(json);
             $('#feedback').show();
             
-            $("#btn-add").prop("disabled", false);
+            $("#btn-update").prop("disabled", false);
         }
-        
     });
 
 }
@@ -70,14 +70,16 @@ function fire_ajax_submit() {
 <body>
 
 <div layout:fragment="content" class="container">
-<h1>Post a Job Information here</h1>
+<h1>Update a Job Information here</h1>   	
+    	
  
-<form id="form-add" method="post" th:action="@{/jobs_add.html}" th:object="${job}">  
-<div id="feedback" class="alert alert-danger pre_line"></div>
+<form id="form-update" method="post" th:action="@{/jobs/jobId}" th:object="${job}" >  
+<div id="feedback" class="alert alert-danger pre_line" ></div>
+
    <table class="table table-hover table-striped">
      <tr>  
             <td><label for="jobId">Job Id</label></td>  
-            <td> <input type="text"  th:field="*{jobId}" /></td>  
+            <td> <input type="text" readonly="true" th:field="*{jobId}" /></td>  
         </tr>  
         <tr>  
             <td><label for="jobCode">Job Code</label></td>  
@@ -101,7 +103,7 @@ function fire_ajax_submit() {
         </tr> 
         <tr>  
             <td></td>  
-            <td><input type="submit" id="btn-add" value="Add a Job Info"></input></td>  
+            <td><input type="submit" id="btn-update" value="Update a Job Info" class="btn btn-warning"></input></td>  
         </tr>  
     </table>  
 </form>  
