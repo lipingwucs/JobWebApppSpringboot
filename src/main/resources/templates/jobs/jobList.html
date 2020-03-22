@@ -33,6 +33,7 @@ function render_job_list() {
 	$(document).delegate('.delete', 'click', function() { 
 		var jobId = $(this).attr('id');
 		var parent = $(this).parent().parent();
+		//var jobId = parent.children("td:nth-child(1)").html();
 		var jobcode = parent.children("td:nth-child(2)").html();
 		var jobName = parent.children("td:nth-child(3)").html();
 		if (confirm('Do you really want to delete this job '+jobId+':'+jobcode+':'+jobName+'?')) {
@@ -49,7 +50,7 @@ function render_job_list() {
 					//render_job_list();
 				},
 				error: function() {
-					$('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting job').fadeIn().fadeOut(4000, function() {
+					$('#feedback').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting job').fadeIn().fadeOut(4000, function() {
 						$(this).remove();
 					});
 				}
