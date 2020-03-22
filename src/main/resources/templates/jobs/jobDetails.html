@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8">
+<title>Get Job Information Details</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<form>
+		<table>
+			<tr>
+				<td><label for="jobId">Job Id</label></td>
+				<td th:text="${job.jobId}"></td>
+			</tr>
+			<tr>
+				<td><label for="jobCode">Job Code</label></td>
+				<td th:text="${job.jobCode}"></td>
+			</tr>
+			<tr>
+				<td><label for="jobName">Job Name</label></td>
+				<td th:text="${job.jobName}"></td>
+			</tr>
+			<tr>
+				<td><label for="jobDesc">Job Desc</label></td>
+				<td th:text="${job.jobDesc}"></td>
+			</tr>
+			<tr>
+				<td><label for="numVacancy">Number of Vacancy</label></td>
+				<td th:text="${job.numVacancy}"></td>
+			</tr>
+			<tr>
+				<td><label for="pubDate">Publich Date</label></td>
+				<td th:text="${job.pubDate}"></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>
+
+
+
+
+
+

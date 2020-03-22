@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+  <title>Jobs List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+  <h1>Jobs List</h1>
+<table border="1">
+		<tr>
+			<th>Job Id</th>
+			<th>Job Code</th>
+			<th>Job Name</th>
+			<th>Job Desc</th>			
+			<th>Number of Vacancy</th>
+			<th>Publish Date</th>
+			
+		</tr>
+		<tr th:each="job : ${jobList}">
+			<td th:text="${job.jobId}">Job Id</td>
+			<td th:text="${job.jobCode}">Job Code</td>
+			<td th:text="${job.jobName}">Job Name</td>
+			<td th:text="${job.jobDesc}">Job Desc</td>
+			<td th:text="${job.numVacancy}">Number of Vacancy</td>
+			<td th:text="${job.pubDate}">Publish Date</td>
+			<td><a th:href="@{/jobs_details.html(jobId=${job.jobId})}" >Details</a></td>
+		</tr>
+	</table>
+    <strong><a href="/">Go back</a></strong>
+
+</body>
+</html>
