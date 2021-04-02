@@ -1,3 +1,5 @@
+// Liping Wu 300958061 COMP303 Assignment3
+
 package com.spring.rest.config;
 
 import org.springframework.context.annotation.Bean;

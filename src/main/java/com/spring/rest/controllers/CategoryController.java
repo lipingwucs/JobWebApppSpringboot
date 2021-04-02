@@ -67,5 +67,4 @@ public class CategoryController {
 	void deleteCat(@PathVariable("jobCatId") int jobCatId) throws Exception {
 		catService.deleteCat(jobCatId);
 	}
-
 }

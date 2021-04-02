@@ -1,3 +1,5 @@
+// Liping Wu 300958061 COMP303 Assignment3
+
 package com.spring.rest.controllers;
 
 import org.springframework.http.HttpHeaders;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.spring.rest.exception.DuplicateException;
-import com.spring.rest.exception.IdMismatchException;
 import com.spring.rest.exception.NotFoundException;
 
 
@@ -29,13 +30,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleDuplicate(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, "Resource already exist: " + ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+    
+    //if need, can add more specific Exception later
 
-    @ExceptionHandler({
-      IdMismatchException.class
-    })
-    public ResponseEntity<Object> handleBadRequest(Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex
-          .getLocalizedMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
+    
     
 }
